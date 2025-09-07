@@ -1,0 +1,27 @@
+{
+  "name": "-api-dojo-conduit-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run collections/jsonplaceholder.postman_collection.json -r htmlextra --reporter-htmlextra-export reports/report.html",
+    "test-console": "newman run collections/jsonplaceholder.postman_collection.json",
+    "test-auto": "newman run collections/jsonplaceholder.postman_collection.json -r htmlextra",
+    "prettier": "prettier --write \"**/*.ts\"",
+    "prettier:check": "prettier --check \"**/*.ts\""
+  },
+  "author": "Yulya Bakhmeteva",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "joi": "^18.0.1",
+    "newman": "^6.2.1",
+    "newman-reporter-htmlextra": "^1.23.1"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^10.0.0",
+    "@playwright/test": "^1.54.2",
+    "@types/node": "^24.2.0",
+    "dotenv": "^17.2.1",
+    "prettier": "^2.6.2"
+  }
+}
