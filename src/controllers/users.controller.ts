@@ -54,17 +54,12 @@ export class Users extends BaseController {
     return response;
   }
 
-  async followUser(username: string) {
+  async followUnfollowUser(username: string) {
     const response = await this.request.post(Users.profilesEndpoint + `${username}/follow`, {
       headers: this.getHeaders(true)
     });
     return response;
   }
 
-  async unfollowUser(username: string) {
-    const response = await this.request.delete(Users.profilesEndpoint + `${username}/follow`, {
-      headers: this.getHeaders(true)
-    });
-    return response;
-  }
+
 }

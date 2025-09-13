@@ -34,7 +34,7 @@ export class TokenHelper {
         data: { user },
       });
 
-      const loginResponse = await apiClient.post('/users/login', {
+      const loginResponse = await apiClient.post('api/users/login', {
         headers: {
           'Content-Type': 'application/json',
         },
