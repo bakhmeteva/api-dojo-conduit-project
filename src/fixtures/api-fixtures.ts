@@ -1,34 +1,86 @@
 // src/fixtures/api-fixtures.ts
-import { test as base } from '@playwright/test';
+import { test as base, APIRequestContext } from '@playwright/test';
 import { Articles } from '../controllers/articles.controller';
 import { Users } from '../controllers/users.controller';
 import { TokenHelper } from './token';
 
-
-type Fixtures = {
+type ApiFixtures = {
+  apiClient: APIRequestContext;
+  authApiClient: any;
+  articleData: any;
+  articlesController: Articles;
+  usersController: Users;
+  authenticatedArticlesController: Articles;
+  authenticatedUsersController: Users;
+  testUser: {
+    email: string;
+    password: string;
+    username: string;
+  };
   commentId: string;
 };
 
-type ApiFixtures = {
-  apiClient: any;
-  authApiClient: any;
-  articleData: any;
-};
-
-export const test = base.extend<Fixtures & ApiFixtures>({
+export const test = base.extend<ApiFixtures>({
   apiClient: async ({ request }, use) => {
-    const apiClient = request;
-    await use(apiClient);
+    await use(request);
   },
 
   authApiClient: async ({ request }, use) => {
     const token = await TokenHelper.getToken(request);
-    const requestWithToken = await request.newContext({
-      extraHTTPHeaders: {
-        'Authorization': `Token ${token}`
+
+    const authClient = {
+      get: (url: string, options: any = {}) => {
+        return request.get(url, {
+          ...options,
+          headers: {
+            ...options?.headers,
+            'Authorization': `Token ${token}`
+          }
+        });
+      },
+
+      post: (url: string, options: any = {}) => {
+        return request.post(url, {
+          ...options,
+          headers: {
+            ...options?.headers,
+            'Authorization': `Token ${token}`
+          }
+        });
+      },
+
+      put: (url: string, options: any = {}) => {
+        return request.put(url, {
+          ...options,
+          headers: {
+            ...options?.headers,
+            'Authorization': `Token ${token}`
+          }
+        });
+      },
+
+      delete: (url: string, options: any = {}) => {
+        return request.delete(url, {
+          ...options,
+          headers: {
+            ...options?.headers,
+            'Authorization': `Token ${token}`
+          }
+        });
+      },
+
+      patch: (url: string, options: any = {}) => {
+        return request.patch(url, {
+          ...options,
+          headers: {
+            ...options?.headers,
+            'Authorization': `Token ${token}`
+          }
+        });
       }
-    });
-    await use(requestWithToken);
+    };
+
+    await use(authClient);
   },
 
   articleData: async ({ authApiClient }, use) => {
@@ -49,7 +101,6 @@ export const test = base.extend<Fixtures & ApiFixtures>({
     };
     await use(createdArticle);
   },
-
 
   articlesController: async ({ request }, use) => {
     const controller = new Articles(request);
@@ -80,6 +131,10 @@ export const test = base.extend<Fixtures & ApiFixtures>({
       username: process.env.USER_NAME || 'testuser',
     };
     await use(testUser);
+  },
+
+  commentId: async ({}, use) => {
+    await use('');
   }
 });
 

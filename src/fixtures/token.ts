@@ -19,6 +19,7 @@ export class TokenHelper {
       });
     }
 
+    // @ts-ignore
     if (!token) {
       const user = {
         email: EMAIL,
