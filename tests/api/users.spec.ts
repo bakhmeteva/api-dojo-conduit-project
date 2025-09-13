@@ -1,8 +1,8 @@
 import { test, expect } from '../../src/fixtures/api-fixtures';
-import { faker } from '@faker-js/faker/locale/ar';
 
-test.describe('Users API', () => {
-  test.describe('User Registration', () => {
+
+test.describe('users API', () => {
+  test.describe('user registration', () => {
     test('should register new user with valid data', async ({ usersController }) => {
       const timestamp = Date.now();
       const userData = {
@@ -17,7 +17,6 @@ test.describe('Users API', () => {
       expect(responseData.user).toHaveProperty('username', userData.username);
       expect(responseData.user).toHaveProperty('token');
       expect(responseData.user.token).toBeTruthy();
-      // Проверяем, что пароль НЕ возвращается в ответе
       expect(responseData.user).not.toHaveProperty('password');
     });
 
@@ -34,7 +33,7 @@ test.describe('Users API', () => {
         ...userData,
         username: `different${timestamp}`,
       });
-      expect(response.status()).toBe(422); // Обычно 422 для validation errors
+      expect(response.status()).toBe(422);
       const errorData = await response.json();
       expect(errorData.errors).toHaveProperty('email');
     });
@@ -53,7 +52,7 @@ test.describe('Users API', () => {
     });
   });
 
-  test.describe('User Authentication', () => {
+  test.describe('user authentication', () => {
     test.beforeAll(async ({ usersController, testUser }) => {
       await usersController.registerUser(testUser);
     });
@@ -160,7 +159,7 @@ test.describe('Users API', () => {
     });
   });
 
-  test.describe('User Profiles', () => {
+  test.describe('user profiles', () => {
     const timestamp = Date.now();
     const userData = {
       username: `testuser${timestamp}`,

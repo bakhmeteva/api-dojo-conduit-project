@@ -23,19 +23,17 @@ export class Articles extends BaseController {
     return response;
   }
 
-  async editArticle(articleData: Article, slug: string) {
-    const response = await this.request.put(Articles.articlesEndpoint + slug, {
+  async editArticle(slug: string, articleData: Article) {
+    return  await this.request.put(Articles.articlesEndpoint + slug, {
       headers: this.getHeaders(true),
       data: { article: articleData }
     });
-    return response;
   }
 
   async deleteArticle(slug: string) {
-    const response = await this.request.delete(Articles.articlesEndpoint + slug, {
+    return await this.request.delete(Articles.articlesEndpoint + slug, {
       headers: this.getHeaders(true)
     });
-    return response;
   }
 
   async getArticle(slug: string) {
