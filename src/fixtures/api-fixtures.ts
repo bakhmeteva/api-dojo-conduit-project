@@ -1,4 +1,3 @@
-// src/fixtures/api-fixtures.ts
 import { test as base, APIRequestContext } from '@playwright/test';
 import { Articles } from '../controllers/articles.controller';
 import { Users } from '../controllers/users.controller';
@@ -34,8 +33,8 @@ export const test = base.extend<ApiFixtures>({
           ...options,
           headers: {
             ...options?.headers,
-            'Authorization': `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         });
       },
 
@@ -44,8 +43,8 @@ export const test = base.extend<ApiFixtures>({
           ...options,
           headers: {
             ...options?.headers,
-            'Authorization': `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         });
       },
 
@@ -54,8 +53,8 @@ export const test = base.extend<ApiFixtures>({
           ...options,
           headers: {
             ...options?.headers,
-            'Authorization': `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         });
       },
 
@@ -64,8 +63,8 @@ export const test = base.extend<ApiFixtures>({
           ...options,
           headers: {
             ...options?.headers,
-            'Authorization': `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         });
       },
 
@@ -74,10 +73,10 @@ export const test = base.extend<ApiFixtures>({
           ...options,
           headers: {
             ...options?.headers,
-            'Authorization': `Token ${token}`
-          }
+            Authorization: `Token ${token}`,
+          },
         });
-      }
+      },
     };
 
     await use(authClient);
@@ -90,14 +89,14 @@ export const test = base.extend<ApiFixtures>({
           title: 'Test Article',
           description: 'Test description',
           body: 'Test article body',
-          tagList: ['test']
-        }
-      }
+          tagList: ['test'],
+        },
+      },
     });
     const json = await articleResponse.json();
     const createdArticle = {
       ...json.article,
-      commentId: undefined
+      commentId: undefined,
     };
     await use(createdArticle);
   },
@@ -135,7 +134,7 @@ export const test = base.extend<ApiFixtures>({
 
   commentId: async ({}, use) => {
     await use('');
-  }
+  },
 });
 
 export { expect } from '@playwright/test';

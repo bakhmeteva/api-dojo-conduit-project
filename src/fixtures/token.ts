@@ -1,4 +1,3 @@
-// src/fixtures/TokenHelper.ts
 import { APIRequestContext } from '@playwright/test';
 import fs from 'fs';
 
@@ -7,41 +6,41 @@ const tokenPath = '.token';
 
 export class TokenHelper {
   static async getToken(apiClient: APIRequestContext): Promise<string> {
+    const today = Date.now().toString()
     let token: string;
+    token = ``;
 
     if (fs.existsSync(tokenPath)) {
       token = fs.readFileSync(tokenPath, { encoding: 'utf-8' });
-      const userExistCheck = await apiClient.get('/user', {
+      const userExistCheck = await apiClient.get('/api/user', {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Token ${token}`,
         },
       });
     }
-
-    // @ts-ignore
     if (!token) {
       const user = {
-        email: EMAIL,
-        password: PASSWORD,
-        username: USER_NAME,
+        email: today + EMAIL,
+        password: today + PASSWORD,
+        username: today + USER_NAME,
       };
 
-      const createUserResponse = await apiClient.post('/users', {
+      const createUserResponse = await apiClient.post('/api/users', {
         headers: {
           'Content-Type': 'application/json',
         },
         data: { user },
       });
 
-      const loginResponse = await apiClient.post('api/users/login', {
+      const loginResponse = await apiClient.post('/api/users/login', {
         headers: {
           'Content-Type': 'application/json',
         },
         data: {
           user: {
-            email: EMAIL,
-            password: PASSWORD,
+            email: today + EMAIL,
+            password: today + PASSWORD,
           },
         },
       });

@@ -1,4 +1,3 @@
-// src/helpers/auth-request.ts
 import { APIRequestContext, APIResponse } from '@playwright/test';
 
 export class AuthenticatedRequest {
@@ -9,8 +8,8 @@ export class AuthenticatedRequest {
       ...options,
       headers: {
         ...options?.headers,
-        'Authorization': `Token ${this.token}`
-      }
+        Authorization: `Token ${this.token}`,
+      },
     });
   }
 
@@ -19,8 +18,8 @@ export class AuthenticatedRequest {
       ...options,
       headers: {
         ...options?.headers,
-        'Authorization': `Token ${this.token}`
-      }
+        Authorization: `Token ${this.token}`,
+      },
     });
   }
 
@@ -29,8 +28,8 @@ export class AuthenticatedRequest {
       ...options,
       headers: {
         ...options?.headers,
-        'Authorization': `Token ${this.token}`
-      }
+        Authorization: `Token ${this.token}`,
+      },
     });
   }
 
@@ -39,8 +38,8 @@ export class AuthenticatedRequest {
       ...options,
       headers: {
         ...options?.headers,
-        'Authorization': `Token ${this.token}`
-      }
+        Authorization: `Token ${this.token}`,
+      },
     });
   }
 
@@ -49,8 +48,8 @@ export class AuthenticatedRequest {
       ...options,
       headers: {
         ...options?.headers,
-        'Authorization': `Token ${this.token}`
-      }
+        Authorization: `Token ${this.token}`,
+      },
     });
   }
 }

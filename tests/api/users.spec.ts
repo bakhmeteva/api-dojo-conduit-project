@@ -1,6 +1,5 @@
 import { test, expect } from '../../src/fixtures/api-fixtures';
 
-
 test.describe('users API', () => {
   test.describe('user registration', () => {
     test('should register new user with valid data', async ({ usersController }) => {
@@ -97,7 +96,7 @@ test.describe('users API', () => {
     });
   });
 
-  test.describe('User Profile Management', () => {
+  test.describe('user profile management', () => {
     test.beforeAll(async ({ usersController, testUser }) => {
       await usersController.registerUser(testUser);
     });
@@ -126,7 +125,6 @@ test.describe('users API', () => {
       };
 
       const response = await authenticatedUsersController.updateUser(updateData);
-
       expect(response.status()).toBe(200);
 
       const responseData = await response.json();
@@ -141,7 +139,6 @@ test.describe('users API', () => {
       };
 
       const response = await authenticatedUsersController.updateUser(updateData);
-
       expect(response.status()).toBe(200);
 
       const responseData = await response.json();
@@ -154,7 +151,6 @@ test.describe('users API', () => {
       };
 
       const response = await authenticatedUsersController.updateUser(updateData);
-
       expect(response.status()).toBe(422);
     });
   });
@@ -174,7 +170,7 @@ test.describe('users API', () => {
 
     test('update profile info', async ({ authenticatedUsersController, testUser }) => {
       await authenticatedUsersController.loginUser(userData);
-      const userNameNew = userData.username + `1`
+      const userNameNew = userData.username + `1`;
       const updateResp = await authenticatedUsersController.updateUser({
         username: userNameNew,
         bio: 'some-bio',
@@ -199,7 +195,7 @@ test.describe('users API', () => {
       expect(response.status()).toBe(404);
     });
 
-    test('should follow user', async ({ authenticatedUsersController,testUser }) => {
+    test('should follow user', async ({ authenticatedUsersController, testUser }) => {
       const responseFollow = await authenticatedUsersController.followUnfollowUser(testUser.username);
       expect(responseFollow.status()).toBe(200);
       const responseData1 = await responseFollow.json();

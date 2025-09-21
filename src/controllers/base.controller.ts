@@ -20,12 +20,4 @@ export abstract class BaseController {
 
     return headers;
   }
-
-  setToken(token: string): void {
-    this.token = token;
-  }
-
-  getToken(): string | undefined {
-    return this.token;
-  }
 }

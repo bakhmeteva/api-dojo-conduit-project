@@ -1,4 +1,3 @@
-
 import { Profile } from './user.interface';
 
 export interface Article {

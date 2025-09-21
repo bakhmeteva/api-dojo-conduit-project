@@ -1,4 +1,3 @@
-// src/schemas/articleSchema.ts
 import Joi from 'joi';
 
 export class Schemas {

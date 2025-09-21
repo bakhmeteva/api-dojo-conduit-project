@@ -1,6 +1,5 @@
 import { test, expect } from '../../src/fixtures/api-fixtures';
 
-
 test.describe('articles API', () => {
   test('create article', async ({ authenticatedArticlesController }) => {
     const response = await authenticatedArticlesController.createArticle({
@@ -12,7 +11,7 @@ test.describe('articles API', () => {
     const responseData = await response.json();
     const slug = responseData.article.slug.toString();
     expect(responseData.article).toHaveProperty('title', 'MyTestArticleTitle');
-    const getArticle =  await authenticatedArticlesController.getArticle(slug);
+    const getArticle = await authenticatedArticlesController.getArticle(slug);
     expect(getArticle.status()).toBe(200);
   });
 
@@ -51,7 +50,7 @@ test.describe('articles API', () => {
 
   test('find article by title', async ({ authenticatedArticlesController }) => {
     const timestamp = Date.now();
-    const articleName  = 'MyTestArticleTitleForSearch' + timestamp
+    const articleName = 'MyTestArticleTitleForSearch' + timestamp;
     await authenticatedArticlesController.createArticle({
       title: articleName,
       description: 'MyTestArticleDescription',
@@ -61,35 +60,32 @@ test.describe('articles API', () => {
     const response = await authenticatedArticlesController.getArticles();
     expect(response.status()).toBe(200);
     const responseData = await response.json();
-    const matchingArticles = responseData.articles.filter(article =>
-      article.title.includes(articleName)
-    );
+    const matchingArticles = responseData.articles.filter((article) => article.title.includes(articleName));
     expect(matchingArticles.length).toBe(1);
   });
 
   test('find article by tag', async ({ authenticatedArticlesController }) => {
     const timestamp = Date.now();
-    const articleName  = 'MyTestArticleTitleForSearch' + timestamp
-    const tag = 'dojo' + timestamp
+    const articleName = 'MyTestArticleTitleForSearch' + timestamp;
+    const tag = 'dojo' + timestamp;
     await authenticatedArticlesController.createArticle({
       title: articleName,
       description: 'MyTestArticleDescription',
       body: 'MyTestArticleBody',
-      tagList: [tag]
+      tagList: [tag],
     });
 
     const response = await authenticatedArticlesController.getArticles();
     expect(response.status()).toBe(200);
     const responseData = await response.json();
-    const matchingArticles = responseData.articles.filter(article =>
-      article.tagList && article.tagList.includes(tag)
+    const matchingArticles = responseData.articles.filter(
+      (article) => article.tagList && article.tagList.includes(tag),
     );
 
     expect(matchingArticles.length).toBe(1);
     expect(matchingArticles[0].title).toBe(articleName);
     expect(matchingArticles[0].tagList).toContain(tag);
   });
-
 
   test('favorite article add and remove', async ({ authenticatedArticlesController }) => {
     const responseCreate = await authenticatedArticlesController.createArticle({
@@ -131,6 +127,4 @@ test.describe('articles API', () => {
     const responseRemove = await authenticatedArticlesController.deleteArticleComment(slug, commentId);
     expect(responseRemove.status()).toBe(204);
   });
-
 });
-
