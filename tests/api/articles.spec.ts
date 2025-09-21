@@ -113,6 +113,7 @@ test.describe('articles API', () => {
       description: 'MyTestArticleDescription',
       body: 'MyTestArticleBody',
     });
+
     const comment = `My Best comment`;
     expect(responseCreate.status()).toBe(200);
     const responseData = await responseCreate.json();
